@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { PhotoList } from "../components/PhotoList";
+import { Cropper } from "../components/Cropper";
+import { CropperFooter } from "../components/CropperFooter";
+
 export const PhotoCropper = () => {
   const initialValue = [];
   const [images, setImages] = useState(initialValue);
@@ -13,10 +16,9 @@ export const PhotoCropper = () => {
 
   return (
     <div style={{ marginTop: "5px", marginLeft: "5px", marginRight: "5px" }}>
-      <p>numbers of files : {images.length}</p>
       <input
         accept="image/*"
-        style={{ display: "none" }}
+        style={{ display: "none", marginBottom: "5px" }}
         id="contained-button-file"
         multiple
         type="file"
@@ -29,16 +31,16 @@ export const PhotoCropper = () => {
         </Button>
       </label>
       <Grid container spacing={2}>
-        <Grid item xs={4}>
+        <Grid item xs={12}>
           <div>
             <PhotoList images={images}></PhotoList>
           </div>
         </Grid>
-        <Grid item xs={4}>
-          <div>4</div>
+        <Grid item xs={12}>
+          <Cropper img={images[0]}></Cropper>
         </Grid>
-        <Grid item xs={4}>
-          <div>4</div>
+        <Grid item xs={12} style={{ marginTop: "50px" }}>
+          <CropperFooter></CropperFooter>
         </Grid>
       </Grid>
     </div>
