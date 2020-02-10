@@ -32,8 +32,11 @@ export const PhotoList = props => {
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={2.5}>
-        {props.images.map(tile => (
-          <GridListTile key={tile.img} style={{ maxWidth: "250px" }}>
+        {props.images.map((tile, index) => (
+          <GridListTile
+            key={index}
+            style={{ Width: "250px", maxWidth: "250px" }}
+          >
             <img src={imageConveter(tile)} alt={tile.name} />
             <GridListTileBar
               title={tile.name}

@@ -37,7 +37,7 @@ export const PhotoCropper = () => {
           </div>
         </Grid>
         <Grid item xs={12}>
-          <Cropper img={images[0]}></Cropper>
+          <Cropper file={images[0]}></Cropper>
         </Grid>
         <Grid item xs={12} style={{ marginTop: "50px" }}>
           <CropperFooter></CropperFooter>
