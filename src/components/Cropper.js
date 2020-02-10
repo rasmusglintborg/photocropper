@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import EXIF from "exif-js";
+import watermark from "watermarkjs";
 export const Cropper = props => {
   const canvasRef = React.createRef();
   const Defaultcrop = {
@@ -24,7 +26,18 @@ export const Cropper = props => {
       reader.readAsDataURL(file);
     }
   };
-
+  const addWaterMark = image => {
+    console.log("watermarkss");
+  };
+  const getMetaDataTimeStampFromImage = image => {
+    EXIF.getData(image, () => {
+      const metaData = EXIF.pretty(image);
+      if (metaData) {
+        console.log(metaData);
+        console.log(EXIF.getAllTags(image));
+      } else console.log("no data found");
+    });
+  };
   const onImageLoaded = image => {
     console.log("image loaded");
   };
@@ -52,6 +65,7 @@ export const Cropper = props => {
       crop.width,
       crop.height
     );
+    getMetaDataTimeStampFromImage(image);
   };
 
   return (
