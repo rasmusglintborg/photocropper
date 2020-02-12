@@ -5,6 +5,7 @@ import EXIF from "exif-js";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import RefreshIcon from "@material-ui/icons/Refresh";
 import Grid from "@material-ui/core/Grid";
 
 export const Cropper = props => {
@@ -46,10 +47,12 @@ export const Cropper = props => {
     console.log("image loaded");
   };
   const onCropComplete = async (crop, pixelCrop) => {
-    getCroppedImg(img, crop, "bla");
+    console.log(crop);
+    getCroppedImg(img, crop);
   };
-  const getCroppedImg = (src, crop, fileName) => {
+  const getCroppedImg = (src, crop) => {
     const canvas = canvasRef.current;
+    if (canvas == null) return;
     const image = new Image();
     image.src = src;
     const scaleX = image.naturalWidth / image.width;
@@ -89,21 +92,34 @@ export const Cropper = props => {
 
   const download = () => {
     var link = document.createElement("a");
-    link.download = "filename.png";
+    link.download = "CroppedPicture.png";
     link.href = croppedImg;
     link.click();
     props.nextFile();
   };
+
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
+      <Grid item xs={12} container direction="row" alignItems="center">
         <IconButton
           color="primary"
           style={{ float: "right" }}
-          onClick={props.nextFile()}
+          onClick={() => {
+            props.nextFile();
+          }}
         >
           <DeleteForeverIcon />
           Remove
+        </IconButton>
+        <IconButton
+          color="primary"
+          style={{ margin: "0 auto" }}
+          onClick={() => {
+            setCrop(Defaultcrop);
+          }}
+        >
+          <RefreshIcon />
+          Reset Crop
         </IconButton>
         <IconButton
           color="primary"

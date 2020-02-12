@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { PhotoList } from "../components/PhotoList";
@@ -8,9 +8,6 @@ export const PhotoCropper = () => {
   const initialValue = [];
   const [images, setImages] = useState(initialValue);
 
-  React.useEffect(() => {
-    console.log("re render you bastard");
-  }, [images]);
   const fileHandler = e => {
     const imageArray = Array.from(e.target.files);
     setImages(images.concat(imageArray));
