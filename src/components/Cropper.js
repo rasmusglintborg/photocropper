@@ -21,6 +21,7 @@ export const Cropper = props => {
   const [img, setImg] = useState(null);
   const [croppedImg, setCroppedImg] = useState(null);
 
+  // eslint-disable-next-line
   useEffect(() => {
     fileSelected(props.file);
   }, [props.file]);
