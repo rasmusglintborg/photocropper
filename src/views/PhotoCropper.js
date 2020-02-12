@@ -3,15 +3,23 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { PhotoList } from "../components/PhotoList";
 import { Cropper } from "../components/Cropper";
-import { CropperFooter } from "../components/CropperFooter";
 
 export const PhotoCropper = () => {
   const initialValue = [];
   const [images, setImages] = useState(initialValue);
 
+  React.useEffect(() => {
+    console.log("re render you bastard");
+  }, [images]);
   const fileHandler = e => {
     const imageArray = Array.from(e.target.files);
     setImages(images.concat(imageArray));
+  };
+
+  const nextFile = () => {
+    const tempArray = images.slice();
+    tempArray.shift();
+    setImages(tempArray);
   };
 
   return (
@@ -37,10 +45,7 @@ export const PhotoCropper = () => {
           </div>
         </Grid>
         <Grid item xs={12}>
-          <Cropper file={images[0]}></Cropper>
-        </Grid>
-        <Grid item xs={12} style={{ marginTop: "50px" }}>
-          <CropperFooter></CropperFooter>
+          <Cropper file={images[0]} nextFile={nextFile}></Cropper>
         </Grid>
       </Grid>
     </div>
