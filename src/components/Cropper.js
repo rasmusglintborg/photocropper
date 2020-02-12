@@ -38,7 +38,14 @@ export const Cropper = props => {
     EXIF.getData(image, () => {
       const metaData = EXIF.pretty(image);
       if (metaData) {
-        dateString = EXIF.getTag(image, "GPSDateStamp");
+        let timestamp = EXIF.getTag(image, "GPSDateStamp");
+        if (timestamp) {
+          let arr = timestamp.split(":");
+          const year = arr[0];
+          const month = arr[1];
+          const day = arr[2];
+          dateString = year + "-" + month + "-" + day;
+        }
       } else dateString = null;
     });
     return dateString;
@@ -60,8 +67,8 @@ export const Cropper = props => {
     canvas.width = crop.width;
     canvas.height = crop.height;
     const ctx = canvas.getContext("2d");
-    const x = crop.width - 150;
-    const y = crop.height - 50;
+    const x = crop.width - 200;
+    const y = crop.height - 60;
     let text = "";
 
     if (getMetaDataTimeStampFromImage(image) !== null)
