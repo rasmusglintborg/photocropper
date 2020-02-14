@@ -72,9 +72,12 @@ export const Cropper = props => {
     const y = crop.height - 60;
     let text = "";
 
-    if (getMetaDataTimeStampFromImage(image) !== null)
-      text = getMetaDataTimeStampFromImage(image).toString();
-
+    if (
+      getMetaDataTimeStampFromImage(image) !== undefined &&
+      getMetaDataTimeStampFromImage(image) !== null
+    ) {
+      text = getMetaDataTimeStampFromImage(image);
+    }
     ctx.drawImage(
       image,
       crop.x * scaleX,
